@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter } from 'react-router-dom';
+import Routes from './routes';
+
+// import './App.css';
 
 import { Provider } from 'react-redux';
-import ToDoAppContainer from './containers/toDoApp';
 import configureStore from './redux/configureStore';
 
 const store = configureStore();
 
-class App extends React.Component {
+class App extends Component {
   render(){
     return(
       <Provider store={store}>
-        <ToDoAppContainer />
+        <BrowserRouter>
+          <Routes />
+        </BrowserRouter>
       </Provider>
     );
   }

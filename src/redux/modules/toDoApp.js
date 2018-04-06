@@ -4,17 +4,19 @@ const LIST_ITEM_CLICK = 'LIST_ITEM_CLICK';
 const DELETE_LIST_ITEM = 'DELETE_LIST_ITEM';
 
 export function listItemClick(index){
-  return {
-    type: LIST_ITEM_CLICK,
-    index
+  return dispatch => {
+    dispatch({
+      type: LIST_ITEM_CLICK,
+      index
+    });
   }
 }
 
 export function deleteListItem(index) {
-  return {
+  return dispatch => dispatch({
     type: DELETE_LIST_ITEM,
     index
-  }
+  })
 }
 
 export function inputSubmit(){
