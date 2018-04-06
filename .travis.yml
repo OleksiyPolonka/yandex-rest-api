@@ -5,8 +5,4 @@ node_js:
  install:
   - npm i -g yarn && yarn
 
-lint: yarn lint
-
-test: yarn test
-
-buil: yarn build
+script: yarn lint
