@@ -1,0 +1,12 @@
+language: node_js
+node_js: 
+ - "stable"
+
+ install:
+  - npm i -g yarn && yarn
+
+lint: yarn lint
+
+test: yarn test
+
+buil: yarn build
