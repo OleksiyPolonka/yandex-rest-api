@@ -1,15 +1,32 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { createLogger } from 'redux-logger';
-import toDoApp from './modules/toDoApp';
+import thunk from 'redux-thunk';
 
-const loggerMiddleware = createLogger(); // initialize logger
+import disk from './modules/disk';
+import files from './modules/files';
 
-const createStoreWithMiddleware = applyMiddleware(loggerMiddleware)(createStore); // apply logger to redux
+const loggerMiddleware = createLogger();
+
+const initialState = {
+  disk: {
+    data: null,
+    error: null,
+    loading: true
+  },
+  files: {
+    data: null,
+    error: null,
+    loading: true
+  }
+}
+
+const createStoreWithMiddleware = applyMiddleware(thunk, loggerMiddleware)(createStore); // apply logger to redux
 
 const reducer = combineReducers({
-  toDoApp
+  disk,
+  files
 });
 
-const configureStore = (initialState) => createStoreWithMiddleware(reducer, initialState);
+const store = createStoreWithMiddleware(reducer, initialState);
 
-export default configureStore;
+export default store;
