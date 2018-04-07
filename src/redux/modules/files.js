@@ -42,7 +42,6 @@ export default function reducer(state = {}, action) {
   switch (action.type){
 
   case SET_FILES_LOADING:
-    debugger
     return Object.assign(
       {},
       state,

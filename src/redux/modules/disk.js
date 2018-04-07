@@ -42,7 +42,6 @@ export default function reducer(state = {}, action) {
   switch (action.type){
 
   case SET_DISK_LOADING:
-    debugger
     return Object.assign(
       {},
       state,

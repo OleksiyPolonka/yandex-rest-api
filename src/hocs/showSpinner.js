@@ -1,6 +1,4 @@
 import React from 'react';
-import * as R from 'ramda';
-import wrapDisplayName from 'recompact/wrapDisplayName';
 
 import Spinner from '../components/spinner';
 
