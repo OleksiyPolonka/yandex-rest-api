@@ -1,8 +1,9 @@
 import React from 'react';
 import List from '../list';
 import Input from '../input';
+import Spinner from '../spinner';
 
-class ToDoApp extends React.Component {
+class Dashboard extends React.Component {
 
   onInputChange = (event) => {
     this.props.inputChange(event.target.value);
@@ -22,23 +23,15 @@ class ToDoApp extends React.Component {
   };
 
   render(){
+    const {disk, files} = this.props;
+
     return (
-      <div className="row">
+      <div>
         <div className="col-md-8 col-md-offset-2">
           <div className="panel panel-default">
             <div className="panel-body">
               <h1>My To Do App</h1>
               <hr/>
-              <List
-                onClick={this.onListItemClick}
-                listItems={this.props.toDoApp.list}
-                deleteListItem={this.deleteListItem}
-              />
-              <Input
-                value={this.props.toDoApp.newToDo}
-                onChange={this.onInputChange}
-                onSubmit={this.onInputSubmit}
-              />
             </div>
           </div>
         </div>
@@ -47,4 +40,4 @@ class ToDoApp extends React.Component {
   }
 }
 
-export default ToDoApp;
+export default Dashboard;

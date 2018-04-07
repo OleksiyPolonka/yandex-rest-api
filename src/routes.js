@@ -1,23 +1,36 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import LoginPage from './containers/loginPage';
-import ToDoAppContainer from './containers/toDoApp';
+import DashboardContainer from './containers/dashboardContainer';
 
 class Routes extends Component {
-  componentWillMount () {
-    // localStorage.getItem('token');
-  }
+  isLogedIn (props) {
+    const token = localStorage.getItem('token');
+    const [, newToken] = props.location.hash.match(/\#(?:access_token)\=([\S\s]*?)\&/) || [];
 
+    if (token) {
+      return true;
+    }
+    if (!token && newToken) {
+      localStorage.setItem('token', newToken)
+
+      return true
+    }
+    return false
+  }
   render () {
     return (
       <Switch>
-        <Route path='/login' component={LoginPage}/>
+        <Route path='/login' component={LoginPage}
+        />
         <Route
           path='/'
-          component={ToDoAppContainer}
-          onEnter={this.onRootRouteEnter}
-          onChange={this.onRootRouteChange}
+          render={props => (
+            this.isLogedIn(props)
+             ? (<DashboardContainer />)
+             : (<Redirect to='/login' />)
+          )}
         />
       </Switch>
     );
