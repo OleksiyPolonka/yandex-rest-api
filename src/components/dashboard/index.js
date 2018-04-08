@@ -1,16 +1,17 @@
 import React from 'react';
 
+import Header from '../header'
+import Sidebar from '../sidebar'
+
 class Dashboard extends React.Component {
   render(){
+    const { disk } = this.props;
+
     return (
       <div>
-        <div className="col-md-8 col-md-offset-2">
-          <div className="panel panel-default">
-            <div className="panel-body">
-              <h1>My To Do App</h1>
-              <hr/>
-            </div>
-          </div>
+        <Header name={disk.user.display_name} />
+        <div className='container'>
+          <Sidebar />
         </div>
       </div>
     );
