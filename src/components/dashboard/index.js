@@ -11,7 +11,7 @@ class Dashboard extends React.Component {
       <div>
         <Header name={disk.user.display_name} />
         <div className='container'>
-          <Sidebar />
+          <Sidebar systemFolders={disk.system_folders} />
         </div>
       </div>
     );
