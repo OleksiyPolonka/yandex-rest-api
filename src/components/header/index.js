@@ -21,12 +21,14 @@ class Header extends Component {
     return (
       redirect
       ? <Redirect to={'/login'} />
-      : <header className='container'>
-          <div className='wrapper'>
-            <h3>{name}</h3>
-            <button className="btn btn-default" onClick={this.logOut}>log out</button>
-          </div>
-        </header>
+      : <div className='header-container'>
+          <header className='container header-container'>
+            <div className='header-wrapper'>
+              <h3><span>Пользователь: </span>{name}</h3>
+              <button className="btn btn-primary" onClick={this.logOut}>log out</button>
+            </div>
+          </header>
+        </div>
     );
   }
 }

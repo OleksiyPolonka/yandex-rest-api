@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const SET_DISK_DATA = 'SET_DISK_DATA';
 const SET_DISK_ERROR = 'SET_DISK_ERROR';
 const SET_DISK_LOADING = 'SET_DISK_LOADING';
@@ -20,17 +22,11 @@ export const fetchDisk = token => {
   return dispatch => {
     dispatch(setDiskLoading());
 
-    fetch('https://cloud-api.yandex.net:443/v1/disk', {
+    axios('https://cloud-api.yandex.net:443/v1/disk', {
       headers: {Authorization: `OAuth ${token}`}
     })
       .then(res => {
-        if (res.status === 401) {
-          res.json()
-            .then(res => dispatch(setDiskError(res)))
-        } else {
-          res.json()
-            .then(res => dispatch(setDiskData(res)))
-        }
+        dispatch(setDiskData(res.data));
       })
       .catch(err =>
         dispatch(setDiskError(err))
@@ -39,6 +35,7 @@ export const fetchDisk = token => {
 }
 
 export default function reducer(state = {}, action) {
+  console.log('action: ', action);
   switch (action.type){
 
   case SET_DISK_LOADING:

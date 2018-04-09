@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
+
 
 import * as R from 'ramda';
 import uuid from 'uuid';
 
 class Sidebar extends Component {
   renderSystemFolders (folder) {
-    return <li key={uuid()}>{folder}</li>
+    return (
+      <li key={uuid()}>
+        <Link to={`/${folder}`}>
+          {folder}
+        </Link>
+      </li>
+    )
   }
 
   getUniqFolders (folders) {
@@ -19,11 +28,13 @@ class Sidebar extends Component {
   render () {
     const { systemFolders } = this.props;
     return (
-      <nav>
-        <ul>
-          { R.map(this.renderSystemFolders, this.getUniqFolders(systemFolders)) }
-        </ul>
-      </nav>
+      <div className='col-sm-3 sidebar-container'>
+        <nav>
+          <ul>
+            { R.map(this.renderSystemFolders, this.getUniqFolders(systemFolders)) }
+          </ul>
+        </nav>
+      </div>
     );
   }
 }

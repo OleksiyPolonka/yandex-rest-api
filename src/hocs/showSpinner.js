@@ -2,7 +2,8 @@ import React from 'react';
 
 import Spinner from '../components/spinner';
 
-const predicate = ({disk, files}) => disk.loading || files.loading
+const predicate = ({disk, files}) =>
+  (!disk.data && !files.data && disk.loading) || (!disk.data && !files.data && files.loading)
 
 const showSpinner = Component => {
   const showSpinner = props => 

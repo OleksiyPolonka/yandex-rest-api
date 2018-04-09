@@ -1,12 +1,11 @@
-.wrap {
-  background: #212529;
+.wrapper {
   width: 100%;
   height: 100%;
   z-index: 9;
   position: absolute;
 }
 
-.spinner-wrap {
+.spinner-wrapper {
   margin: auto;
   position: absolute;
   top: 50%;
@@ -33,7 +32,7 @@
   position: absolute;
   left: 50%;
   transform-origin: center 50px;
-  background: #fff;
+  background: #212529;
   box-shadow: 0 0 3px rgba(255, 255, 255, 0.7);
   border-radius: 3px;
 }

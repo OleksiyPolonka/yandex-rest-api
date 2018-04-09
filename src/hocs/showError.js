@@ -3,7 +3,7 @@ import React from 'react';
 import * as R from 'ramda';
 import wrapDisplayName from 'recompact/wrapDisplayName';
 
-// import {Alert} from '../components/common';
+import Alert from '../components/alert';
 
 const getError = R.either(
   R.path(['disk', 'error']),
@@ -18,11 +18,16 @@ const predicate = R.compose(
 const showError = Component => {
   class showError extends React.Component {
     render () {
-      return predicate(this.props) ? (
+      return (
         <div>
-          {getError(this.props)}
+          {
+            predicate(this.props)
+            ? <Alert error={getError(this.props).message} />
+            : null
+          }
+          <Component {...this.props} />
         </div>
-        ) : <Component {...this.props} />;
+      );
     }
   }
   showError.displayName = wrapDisplayName(Component, 'showError');

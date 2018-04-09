@@ -9,22 +9,26 @@ import {fetchFiles} from '../../redux/modules/files';
 
 import * as R from 'ramda';
 import { withProps } from 'recompact'
+import { withRouter } from 'react-router-dom';
 
 const mapStateToProps = ({disk, files}) => ({ disk, files });
 
 function mapDispatchToProps(dispatch) {
+  const token = window.localStorage.getItem('token');;
+
   return {
-    fetchDisk: (value) => dispatch(fetchDisk('AQAAAAAknEovAADLW3Mhtfz4MECttjJsce-YTU8')),
-    fetchFiles: (value) => dispatch(fetchFiles('AQAAAAAknEovAADLW3Mhtfz4MECttjJsce-YTU8')),
+    fetchDisk: () => dispatch(fetchDisk(token)),
+    fetchFiles: (pathname) => dispatch(fetchFiles(token, pathname)),
   };
 }
 
 export default R.compose(
+  withRouter,
   connect(mapStateToProps, mapDispatchToProps),
   fetchData(
-    ({fetchDisk, fetchFiles}) => {
+    ({fetchDisk, fetchFiles, location}) => {
       fetchDisk();
-      fetchFiles();
+      fetchFiles(location.pathname);
     }
   ),
   showError,
