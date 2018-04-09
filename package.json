@@ -22,8 +22,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "travis": "yarn test",
-    "pre-commit": "yarn test"
+    "travis": "yarn test"
   },
   "devDependencies": {
     "bootstrap": "^4.0.0",
