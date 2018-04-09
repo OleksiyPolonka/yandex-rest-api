@@ -33,22 +33,29 @@ class Dashboard extends React.Component {
       this.props.fetchFiles(location.pathname)
     }
   }
-  render(){
-    const { disk, files, location } = this.props;
+  render() {
+    const {
+      files,
+      location: {pathname, hash},
+      disk: {data: {user, system_folders}}
+    } = this.props;
 
     return (
       <div className='dashboard-container'>
-        <Header name={disk.user.display_name} />
+        <Header name={user.display_name} />
         <div className='container dashboard-wrapper'>
-          <Sidebar systemFolders={disk.system_folders} />
+          <Sidebar
+            hash={hash}
+            systemFolders={system_folders}
+          />
           <div className='col-sm-9 content-wrapper'>
-            <Navbar pathname={location.pathname}/>
+            <Navbar pathname={pathname} hash={hash}/>
             {
               files.data || files.loading
               ? <MainContent
                   data={files.data}
                   loading={files.loading}
-                  pathname={location.pathname}/>
+                  pathname={pathname}/>
               : ''
             }
           </div>

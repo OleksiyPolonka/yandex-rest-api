@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { BASE_URL } from '../../constants/common';
 
 const SET_DISK_DATA = 'SET_DISK_DATA';
 const SET_DISK_ERROR = 'SET_DISK_ERROR';
@@ -22,7 +23,7 @@ export const fetchDisk = token => {
   return dispatch => {
     dispatch(setDiskLoading());
 
-    axios('https://cloud-api.yandex.net:443/v1/disk', {
+    axios(BASE_URL, {
       headers: {Authorization: `OAuth ${token}`}
     })
       .then(res => {
@@ -34,7 +35,14 @@ export const fetchDisk = token => {
   };
 }
 
-export default function reducer(state = {}, action) {
+const defaultState = {
+  data: null,
+  error: null,
+  loading: true
+};
+
+export default function reducer(state = defaultState, action) {
+  console.log('state: ', state);
   switch (action.type){
     case SET_DISK_LOADING:
       return Object.assign(
@@ -51,9 +59,9 @@ export default function reducer(state = {}, action) {
         {},
         state,
         {
-          ...state.disk,
-          data: action.data,
-          loading: false
+          error: null,
+          loading: false,
+          data: action.data
         }
       );
 
@@ -62,9 +70,9 @@ export default function reducer(state = {}, action) {
         {},
         state,
         {
-          ...state.disk,
+          data: null,
+          loading: false,
           error: action.error,
-          loading: false
         }
       );
 

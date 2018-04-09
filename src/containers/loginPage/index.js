@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Spinner from '../../components/spinner';
 
+import { BASE_AUTH_URL, RESPONSE_TYPE, CLIENT_ID } from '../../constants/common';
+
 import './login.css';
 
 class LoginPage extends Component {
@@ -11,10 +13,9 @@ class LoginPage extends Component {
     };
   }
   getTocken = () => {
-    // TODO move url to const folder
     this.setState({isLoading: true});
 
-    fetch('https://oauth.yandex.ru/authorize?response_type=token&client_id=7e3526c3f2704086887ed8eb3bee84cd')
+    fetch(`${BASE_AUTH_URL}?response_type=${RESPONSE_TYPE}&client_id=${CLIENT_ID}`)
       .then(res => window.location = res.url)
       .catch(err => this.setState({isLoading: false}));
   }

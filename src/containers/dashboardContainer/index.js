@@ -34,7 +34,7 @@ export default R.compose(
   showError,
   showSpinner,
   withProps(({disk, files}) => ({
-    disk: disk.data,
+    disk,
     files
   }))
 )(Dashboard);
