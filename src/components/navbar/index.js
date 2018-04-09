@@ -1,15 +1,27 @@
 import React, { Component } from 'react';
-import * as R from 'ramda';
 import uuid from 'uuid';
+import * as R from 'ramda';
+import Proptypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import './navbar.css'
 
 const ROOT = 'root'
 
+/* Interface */
+const propTypes = {
+  pathname: Proptypes.string
+};
+
+/* Default props */
+const defaultProps = {
+  pathname: ''
+};
+
+/* Implementation */
 class Navbar extends Component {
   getNavItem () {
-    const {pathname} = this.props;
+    const { pathname } = this.props;
     const navbarArray = pathname.split('/');
     if (pathname !== '/') {
       navbarArray[0] = ROOT;
@@ -46,5 +58,8 @@ class Navbar extends Component {
     );
   }
 }
+
+Navbar.propTypes = propTypes;
+Navbar.defaultProps = defaultProps;
 
 export default Navbar;

@@ -35,42 +35,40 @@ export const fetchDisk = token => {
 }
 
 export default function reducer(state = {}, action) {
-  console.log('action: ', action);
   switch (action.type){
+    case SET_DISK_LOADING:
+      return Object.assign(
+        {},
+        state,
+        {
+          ...state.disk,
+          loading: true
+        }
+      );
 
-  case SET_DISK_LOADING:
-    return Object.assign(
-      {},
-      state,
-      {
-        ...state.disk,
-        loading: true
-      }
-    );
+    case SET_DISK_DATA:
+      return Object.assign(
+        {},
+        state,
+        {
+          ...state.disk,
+          data: action.data,
+          loading: false
+        }
+      );
 
-  case SET_DISK_DATA:
-    return Object.assign(
-      {},
-      state,
-      {
-        ...state.disk,
-        data: action.data,
-        loading: false
-      }
-    );
+    case SET_DISK_ERROR:
+      return Object.assign(
+        {},
+        state,
+        {
+          ...state.disk,
+          error: action.error,
+          loading: false
+        }
+      );
 
-  case SET_DISK_ERROR:
-    return Object.assign(
-      {},
-      state,
-      {
-        ...state.disk,
-        error: action.error,
-        loading: false
-      }
-    );
-
-  default:
-    return state;
-  }
+    default:
+      return state;
+    }
 }

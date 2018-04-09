@@ -1,28 +1,39 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
 import * as R from 'ramda';
+import Proptypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import Spinner from '../../spinner';
 import File from '../file'
+import Spinner from '../../spinner';
 
 import '../dashboard.css';
 
-class MainContent extends Component {
-  constructor (...args) {
-    super(...args);
-  }
+/* Interface */
+const propTypes = {
+  data: Proptypes.object,
+  loading: Proptypes.bool,
+  pathname: Proptypes.string
+};
 
+/* Default props */
+const defaultProps = {
+  data: {},
+  pathname: '',
+  loading: false
+};
+
+/* Implementation */
+class MainContent extends Component {
   getItems () {
     return R.path(
-      ['data', '_embedded', 'items'],
-    this.props.files)
+      ['_embedded', 'items'],
+      this.props.data
+    );
   }
 
   renderContent = item => {
-    console.log('item: ', item);
     const [, pathname] = item.path.split('disk:')
-    console.log('pathname: ', pathname);
 
     return (
       <div
@@ -32,7 +43,6 @@ class MainContent extends Component {
         {
           item.type === 'dir'
           ? <div>
-              {/* <img src='../../../img/folder.svg' width="189" height="255"/> */}
               <Link to={pathname} className='cell-container'>
                 <span className='folder' />
                 {item.name}
@@ -48,12 +58,12 @@ class MainContent extends Component {
   }
 
   render () {
-    const {files} = this.props;
+    const {loading} = this.props;
 
     return (
       <div className='main-content-container'>
         {
-          files.loading
+          loading
             ? <Spinner />
             : R.map(this.renderContent, this.getItems())
         }
@@ -61,5 +71,8 @@ class MainContent extends Component {
     );
   }
 }
+
+MainContent.propTypes = propTypes;
+MainContent.defaultProps = defaultProps;
 
 export default MainContent;

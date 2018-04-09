@@ -1,4 +1,5 @@
 import React from 'react';
+import Proptypes from 'prop-types';
 
 import Header from '../header'
 import Navbar from '../navbar'
@@ -7,6 +8,23 @@ import MainContent from './mainContent';
 
 import './dashboard.css';
 
+/* Interface */
+const propTypes = {
+  disk: Proptypes.object,
+  files: Proptypes.object,
+  location: Proptypes.object,
+  fetchFiles: Proptypes.func
+};
+
+/* Default props */
+const defaultProps = {
+  disk: {},
+  files: {},
+  location: {},
+  fetchFiles: () => true
+};
+
+/* Implementation */
 class Dashboard extends React.Component {
   componentWillReceiveProps ({location}) {
     const token = window.localStorage.getItem('token');
@@ -27,7 +45,10 @@ class Dashboard extends React.Component {
             <Navbar pathname={location.pathname}/>
             {
               files.data || files.loading
-              ? <MainContent files={files} pathname={location.pathname}/>
+              ? <MainContent
+                  data={files.data}
+                  loading={files.loading}
+                  pathname={location.pathname}/>
               : ''
             }
           </div>
@@ -36,5 +57,8 @@ class Dashboard extends React.Component {
     );
   }
 }
+
+Dashboard.propTypes = propTypes;
+Dashboard.defaultProps = defaultProps;
 
 export default Dashboard;
