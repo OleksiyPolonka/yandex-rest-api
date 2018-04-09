@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const SET_FILES_DATA = 'SET_FILES_DATA';
 const SET_FILES_ERROR = 'SET_FILES_ERROR';
 const SET_FILES_LOADING = 'SET_FILES_LOADING';
@@ -20,17 +22,11 @@ export const fetchFiles = (token, path = '/') => {
   return dispatch => {
     dispatch(setFilesLoading());
 
-    fetch(`https://cloud-api.yandex.net:443/v1/disk/resources?path=${path}`, {
+    axios(`https://cloud-api.yandex.net:443/v1/disk/resources?path=${path}`, {
       headers: {Authorization: `OAuth ${token}`}
     })
       .then(res => {
-        if (res.status === 401) {
-          res.json()
-            .then(res => dispatch(setFilesError(res)))
-        } else {
-          res.json()
-            .then(res => dispatch(setFilesData(res)))
-        }
+        dispatch(setFilesData(res.data))
       })
       .catch(err =>
         dispatch(setFilesError(err))
@@ -56,9 +52,9 @@ export default function reducer(state = {}, action) {
       {},
       state,
       {
-        ...state.files,
-        data: action.data,
-        loading: false
+        error: null,
+        loading: false,
+        data: action.data
       }
     );
 
@@ -67,9 +63,9 @@ export default function reducer(state = {}, action) {
       {},
       state,
       {
-        ...state.files,
-        error: action.error,
-        loading: false
+        data: null,
+        loading: false,
+        error: action.error
       }
     );
 
