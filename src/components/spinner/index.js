@@ -1,6 +1,7 @@
 import React from 'react';
 import './spinner.css';
 
+/* Implementation */
 const Spinner = () => {
   return (
     <div className="wrapper">

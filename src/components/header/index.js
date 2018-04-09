@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import Proptypes from 'prop-types';
 
 import './header.css'
 
+/* Interface */
+const propTypes = {
+  name: Proptypes.string
+};
+
+/* Default props */
+const defaultProps = {
+  name: ''
+};
+
+/* Implementation */
 class Header extends Component {
   constructor (...args) {
     super(...args);
@@ -32,5 +44,8 @@ class Header extends Component {
     );
   }
 }
+
+Header.propTypes = propTypes;
+Header.defaultProps = defaultProps;
 
 export default Header;
