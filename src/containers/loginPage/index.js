@@ -14,8 +14,9 @@ class LoginPage extends Component {
   }
   getTocken = () => {
     this.setState({isLoading: true});
+    let url = `${BASE_AUTH_URL}?response_type=${RESPONSE_TYPE}&client_id=${CLIENT_ID}`;
 
-    fetch(`${BASE_AUTH_URL}?response_type=${RESPONSE_TYPE}&client_id=${CLIENT_ID}`)
+    fetch(url)
       .then(res => window.location = res.url)
       .catch(err => this.setState({isLoading: false}));
   }

@@ -2,7 +2,7 @@
   "name": "yandex-rest-api",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://oleksiypolonka.github.io/yandex-rest-api",
+  "homepage": "https://oleksiypolonka.github.io/yandex-rest-api",
   "dependencies": {
     "axios": "^0.18.0",
     "ramda": "^0.25.0",
@@ -25,7 +25,7 @@
     "eject": "react-scripts eject",
     "predeploy": "yarn build",
     "deploy": "gh-pages -d build",
-    "travis": "yarn test && yarn deploy"
+    "travis": "yarn test"
   },
   "devDependencies": {
     "bootstrap": "^4.0.0",
