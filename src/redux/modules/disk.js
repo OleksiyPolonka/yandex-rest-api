@@ -42,7 +42,6 @@ const defaultState = {
 };
 
 export default function reducer(state = defaultState, action) {
-  console.log('state: ', state);
   switch (action.type){
     case SET_DISK_LOADING:
       return Object.assign(

@@ -40,7 +40,7 @@ class Navbar extends Component {
   }
 
   renderItem = (item, index, items) => {
-    console.log('this.getLink(item, index, items): ', this.getLink(item, index, items));    return (
+    return (
       <li className='navbar-items' key={uuid()}>
         <Link to={this.getLink(item, index, items)}>
           {item}
