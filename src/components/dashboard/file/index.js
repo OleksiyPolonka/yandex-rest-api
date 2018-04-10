@@ -1,6 +1,8 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 
+import * as R from 'ramda';
+
 /* Interface */
 const propTypes = {
   name: Proptypes.string,
@@ -23,7 +25,7 @@ const File = ({ name, size }) => {
       </div>
       <div>
         <span>Размер: </span>
-        {size ? size / 1000000 : size}
+        { R.divide(size, 1000000) }
       </div>
     </div>
   )
