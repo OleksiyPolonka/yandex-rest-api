@@ -44,3 +44,7 @@
 .navigation a:hover::before {
   border-left-color: #0069d9;
 }
+
+.navbar-items {
+  padding-bottom: 20px;
+}

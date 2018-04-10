@@ -20,7 +20,11 @@ const initialState = {
   }
 }
 
-const createStoreWithMiddleware = applyMiddleware(thunk, loggerMiddleware)(createStore); // apply logger to redux
+const middleware = [thunk]
+
+if (process.env.NODE_ENV) middleware.push(loggerMiddleware);
+
+const createStoreWithMiddleware = applyMiddleware(...middleware)(createStore);
 
 const reducer = combineReducers({
   disk,

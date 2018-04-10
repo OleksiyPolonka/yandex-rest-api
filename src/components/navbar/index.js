@@ -10,11 +10,13 @@ const ROOT = 'root'
 
 /* Interface */
 const propTypes = {
+  hash: Proptypes.string,
   pathname: Proptypes.string
 };
 
 /* Default props */
 const defaultProps = {
+  hash: '',
   pathname: ''
 };
 
@@ -31,28 +33,31 @@ class Navbar extends Component {
     return [ROOT];
   }
 
-  getLink = (item) => {
-    if (item === ROOT) return '/';
-    const { pathname } = this.props;
+  getLink = (item, index, items) => {
+    if (!index) return '/';
 
-    return `${pathname.substr(0, pathname.indexOf(item))}${item}`;
+    return `/${R.join('/', R.slice(1, R.inc(index), items))}`;
   }
 
-  renderItem = (item) => {
+  renderItem = (item, index, items) => {
     return (
       <li className='navbar-items' key={uuid()}>
-        <Link to={this.getLink(item)}>
+        <Link to={this.getLink(item, index, items)}>
           {item}
         </Link>
       </li>
     );
   }
 
+  mapIndexed = () => {
+    return R.addIndex(R.map)
+  }
+
   render () {
     return (
       <nav className='navigation'>
         <ul>
-          {R.map(this.renderItem, this.getNavItem())}
+          {this.mapIndexed()(this.renderItem, this.getNavItem())}
         </ul>
       </nav>
     );

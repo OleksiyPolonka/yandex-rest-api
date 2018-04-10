@@ -16,7 +16,7 @@ const defaultProps = {
 
 /* Implementation */
 class Sidebar extends Component {
-  renderSystemFolders (folder) {
+  renderSystemFolders = folder => {
     return (
       <li key={uuid()}>
         <Link to={`/${folder}`}>
@@ -26,7 +26,7 @@ class Sidebar extends Component {
     )
   }
 
-  getUniqFolders (folders) {
+  getUniqFolders = folders => {
     return R.compose(
       R.uniq,
       R.map(el => el.split('/')[1]),

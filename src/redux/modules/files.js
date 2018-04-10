@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { BASE_URL } from '../../constants/common';
 
 const SET_FILES_DATA = 'SET_FILES_DATA';
 const SET_FILES_ERROR = 'SET_FILES_ERROR';
@@ -22,10 +23,10 @@ export const fetchFiles = (token, path = '/') => {
   return dispatch => {
     dispatch(setFilesLoading());
 
-    axios(`https://cloud-api.yandex.net:443/v1/disk/resources?path=${path}`, {
+    axios(`${BASE_URL}/resources?path=${path}`, {
       headers: {Authorization: `OAuth ${token}`}
     })
-      .then(res => {
+      .then(res => {                                        
         dispatch(setFilesData(res.data))
       })
       .catch(err =>
@@ -34,42 +35,47 @@ export const fetchFiles = (token, path = '/') => {
   };
 }
 
-export default function reducer(state = {}, action) {
+const defaultState = {
+  data: null,
+  error: null,
+  loading: true
+};
+
+export default function reducer(state = defaultState, action) {
   switch (action.type){
+    case SET_FILES_LOADING:
+      return Object.assign(
+        {},
+        state,
+        {
+          ...state.files,
+          loading: true
+        }
+      );
 
-  case SET_FILES_LOADING:
-    return Object.assign(
-      {},
-      state,
-      {
-        ...state.files,
-        loading: true
-      }
-    );
+    case SET_FILES_DATA:
+      return Object.assign(
+        {},
+        state,
+        {
+          error: null,
+          loading: false,
+          data: action.data
+        }
+      );
 
-  case SET_FILES_DATA:
-    return Object.assign(
-      {},
-      state,
-      {
-        error: null,
-        loading: false,
-        data: action.data
-      }
-    );
+    case SET_FILES_ERROR:
+      return Object.assign(
+        {},
+        state,
+        {
+          data: null,
+          loading: false,
+          error: action.error
+        }
+      );
 
-  case SET_FILES_ERROR:
-    return Object.assign(
-      {},
-      state,
-      {
-        data: null,
-        loading: false,
-        error: action.error
-      }
-    );
-
-  default:
-    return state;
-  }
+    default:
+      return state;
+    }
 }

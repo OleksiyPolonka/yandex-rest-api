@@ -25,7 +25,7 @@ const defaultProps = {
 
 /* Implementation */
 class MainContent extends Component {
-  getItems () {
+  getItems = () => {
     return R.path(
       ['_embedded', 'items'],
       this.props.data
